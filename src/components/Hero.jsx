@@ -1,16 +1,19 @@
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Points, PointMaterial, Float } from '@react-three/drei';
+import { Points, PointMaterial } from '@react-three/drei';
 import * as random from 'maath/random/dist/maath-random.esm';
 import { motion } from 'framer-motion';
 
 function NeuralNetwork() {
     const ref = useRef();
-    const sphere = useMemo(() => random.inSphere(new Float32Array(3000), { radius: 1.5 }), []);
+    // Optimized particle count for mobile mist effect
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const particleCount = isMobile ? 4000 : 6000;
+    const sphere = useMemo(() => random.inSphere(new Float32Array(particleCount), { radius: 1.5 }), [particleCount]);
 
     useFrame((state, delta) => {
-        ref.current.rotation.x -= delta / 10;
-        ref.current.rotation.y -= delta / 15;
+        ref.current.rotation.x -= delta / 15;
+        ref.current.rotation.y -= delta / 25;
     });
 
     return (
@@ -19,9 +22,10 @@ function NeuralNetwork() {
                 <PointMaterial
                     transparent
                     color="#00F5FF"
-                    size={0.005}
+                    size={isMobile ? 0.003 : 0.005} // Smaller particles for mist effect on mobile
                     sizeAttenuation={true}
                     depthWrite={false}
+                    opacity={isMobile ? 0.4 : 0.6}
                 />
             </Points>
         </group>
@@ -30,7 +34,14 @@ function NeuralNetwork() {
 
 export default function Hero() {
     return (
-        <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-bg-primary">
+        <section className="relative h-screen min-h-[600px] w-full flex flex-col items-center justify-center overflow-hidden bg-bg-primary">
+            {/* Ambient Depth Blobs */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent-primary/5 rounded-full blur-[120px] animate-pulse" />
+                <div className="absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] bg-accent-secondary/5 rounded-full blur-[100px]" />
+                <div className="absolute top-[40%] right-[10%] w-[20%] h-[20%] bg-accent-primary/10 rounded-full blur-[80px]" />
+            </div>
+
             {/* Three.js Background */}
             <div className="absolute inset-0 z-0">
                 <Canvas camera={{ position: [0, 0, 1] }}>
@@ -40,56 +51,60 @@ export default function Hero() {
 
             {/* Grid Overlay */}
             <div className="absolute inset-0 z-10 bg-grid opacity-20 pointer-events-none" />
-            <div className="absolute inset-0 z-10 bg-gradient-to-b from-bg-primary/0 via-bg-primary/50 to-bg-primary pointer-events-none" />
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-bg-primary/20 via-bg-primary/60 to-bg-primary pointer-events-none" />
 
             {/* Content */}
-            <div className="relative z-20 text-center px-6">
+            <div className="relative z-20 text-center px-6 flex flex-col items-center max-w-full overflow-hidden">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="mb-4"
+                    className="mb-6 md:mb-8"
                 >
-                    <span className="mono text-[10px] md:text-xs uppercase tracking-[0.4em] text-accent-primary font-bold">
-                        AIML Department · AITS Tirupati
+                    <span className="mono text-[9px] md:text-xs uppercase tracking-[0.5em] text-accent-primary font-black px-4 py-1.5 border border-accent-primary/20 bg-accent-primary/5 rounded-full">
+                        AIML · AITS Tirupati
                     </span>
                 </motion.div>
 
-                <motion.h1
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black mb-2 tracking-tighter bg-gradient-to-b from-highlight to-highlight/30 bg-clip-text text-transparent break-words max-w-full"
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1, delay: 0.2 }}
+                    className="relative mb-6 md:mb-8"
                 >
-                    PravahaAI
-                </motion.h1>
+                    <h1 className="text-[12vw] sm:text-7xl md:text-9xl lg:text-[11rem] font-black tracking-tight leading-none bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent italic uppercase select-none">
+                        Pravaha<span className="text-accent-primary not-italic">AI</span>
+                    </h1>
+                    {/* Decorative line for mobile impact */}
+                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 md:w-24 h-[2px] bg-accent-primary shadow-[0_0_15px_rgba(0,245,255,0.8)]" />
+                </motion.div>
 
                 <motion.p
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    className="text-xl md:text-2xl font-light text-body-text mb-12 tracking-wide"
+                    className="text-base sm:text-xl md:text-2xl font-light text-body-text/80 mb-12 md:mb-16 tracking-[0.2em] uppercase max-w-[280px] sm:max-w-none"
                 >
-                    Flow of Intelligence
+                    Flow of <span className="text-highlight font-medium">Intelligence</span>
                 </motion.p>
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.6 }}
-                    className="flex flex-col sm:flex-row gap-4 justify-center"
+                    className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto px-10 sm:px-0"
                 >
                     <a
                         href="#register"
-                        className="px-10 py-4 bg-accent-primary text-bg-primary font-bold text-sm tracking-widest uppercase hover:scale-105 transition-transform active:scale-95 shadow-[0_0_30px_rgba(0,245,255,0.4)]"
+                        className="w-full sm:w-auto px-12 py-5 bg-accent-primary text-bg-primary font-black text-xs tracking-[0.4em] uppercase hover:bg-white transition-all shadow-[0_0_40px_rgba(0,245,255,0.3)] active:scale-95 text-center"
                     >
-                        Register Now
+                        Initialize
                     </a>
                     <a
                         href="#events"
-                        className="px-10 py-4 border border-accent-primary/50 text-accent-primary font-bold text-sm tracking-widest uppercase hover:bg-accent-primary/10 transition-colors"
+                        className="w-full sm:w-auto px-12 py-5 border border-white/10 text-highlight font-black text-xs tracking-[0.4em] uppercase hover:bg-white/5 transition-all text-center"
                     >
-                        Explore Events
+                        Explore
                     </a>
                 </motion.div>
             </div>
@@ -98,11 +113,11 @@ export default function Hero() {
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 1 }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
+                transition={{ delay: 1.2, duration: 1 }}
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
             >
-                <div className="w-[1px] h-12 bg-gradient-to-b from-accent-primary/50 to-transparent" />
-                <span className="mono text-[8px] uppercase tracking-[0.2em] text-body-text">Scroll</span>
+                <div className="w-[1px] h-12 bg-gradient-to-b from-accent-primary to-transparent" />
+                <span className="mono text-[8px] uppercase tracking-[0.5em] text-accent-primary/40 font-black">Sync</span>
             </motion.div>
         </section>
     );
