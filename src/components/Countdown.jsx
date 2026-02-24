@@ -53,8 +53,8 @@ export default function Countdown() {
         }, [value]);
 
         return (
-            <div className={`relative w-8 md:w-14 h-16 md:h-24 flex items-center justify-center bg-white/[0.02] border border-white/5 mx-[1px] transition-all duration-200 ${isGlitching ? 'border-accent-primary/40 bg-accent-primary/5' : ''}`}>
-                <span className={`text-3xl md:text-6xl font-black mono tracking-tighter ${isGlitching ? 'text-accent-primary brightness-150' : 'text-highlight'}`}>
+            <div className={`relative w-7 sm:w-8 md:w-14 h-12 sm:h-16 md:h-24 flex items-center justify-center bg-white/[0.02] border border-white/5 mx-[1px] transition-all duration-200 ${isGlitching ? 'border-accent-primary/40 bg-accent-primary/5' : ''}`}>
+                <span className={`text-2xl sm:text-3xl md:text-6xl font-black mono tracking-tighter ${isGlitching ? 'text-accent-primary brightness-150' : 'text-highlight'}`}>
                     {displayValue}
                 </span>
                 {isGlitching && (

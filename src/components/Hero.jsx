@@ -59,7 +59,7 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-6xl md:text-8xl lg:text-9xl font-black mb-2 tracking-tighter bg-gradient-to-b from-highlight to-highlight/30 bg-clip-text text-transparent"
+                    className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black mb-2 tracking-tighter bg-gradient-to-b from-highlight to-highlight/30 bg-clip-text text-transparent break-words max-w-full"
                 >
                     PravahaAI
                 </motion.h1>

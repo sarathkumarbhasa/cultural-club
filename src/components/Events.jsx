@@ -190,7 +190,7 @@ export default function Events() {
 
                 <motion.div
                     layout
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-1"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-1"
                 >
                     <AnimatePresence mode="popLayout">
                         {eventsData[activeTab].map((event) => (

@@ -68,7 +68,7 @@ export default function Registration() {
     };
 
     return (
-        <section id="register" className="py-32 px-6 bg-bg-secondary relative">
+        <section id="register" className="py-20 md:py-32 px-4 md:px-6 bg-bg-secondary relative">
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent-primary/20 to-transparent" />
 
             <div className="max-w-4xl mx-auto relative z-10">
@@ -85,9 +85,9 @@ export default function Registration() {
                     initial={{ opacity: 0, scale: 0.98 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="glass p-1 md:p-1 shadow-2xl"
+                    className="glass p-0.5 md:p-1 shadow-2xl"
                 >
-                    <div className="bg-bg-primary p-8 md:p-16 border border-white/5">
+                    <div className="bg-bg-primary p-6 sm:p-8 md:p-16 border border-white/5">
                         {status === "success" ? (
                             <div className="text-center py-20 flex flex-col items-center">
                                 <motion.div initial={{ scale: 0, rotate: -45 }} animate={{ scale: 1, rotate: 0 }} className="p-6 bg-accent-primary/10 rounded-full mb-10">
