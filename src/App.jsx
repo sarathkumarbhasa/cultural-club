@@ -13,7 +13,7 @@ const Events = lazy(() => import('./components/Events'));
 function EventsLoading() {
   return (
     <div className="py-32 px-6 bg-bg-primary flex flex-col items-center justify-center min-h-[600px]">
-      <div className="flex flex-col items-center gap-6 animate-pulse">
+      <div className="flex flex-col items-center gap-6">
         <Loader2 className="animate-spin text-accent-primary" size={48} />
         <span className="mono text-[10px] uppercase tracking-[0.5em] text-accent-primary/50 font-black">
           Initializing Event Matrix...

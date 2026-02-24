@@ -113,16 +113,6 @@ export default function Countdown() {
                 </div>
 
                 <div className="mt-16 flex flex-col items-center gap-4">
-                    <div className="flex gap-4">
-                        {[1, 2, 3, 4, 5].map(i => (
-                            <motion.div
-                                key={i}
-                                animate={{ height: [4, 12, 4], opacity: [0.2, 1, 0.2] }}
-                                transition={{ duration: 1, delay: i * 0.1, repeat: Infinity }}
-                                className="w-1 bg-accent-primary"
-                            />
-                        ))}
-                    </div>
                     <div className="text-center">
                         <div className="mono text-[10px] text-highlight/50 uppercase tracking-[0.4em] mb-1">
                             Target: March 13. 2026 // 09:00:00
