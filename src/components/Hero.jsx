@@ -1,6 +1,6 @@
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Points, PointMaterial, AdaptiveDpr, Preload } from '@react-three/drei';
+import { Points, PointMaterial } from '@react-three/drei';
 import * as random from 'maath/random/dist/maath-random.esm';
 import { motion } from 'framer-motion';
 
@@ -8,7 +8,7 @@ function NeuralNetwork() {
     const ref = useRef();
     // Optimized particle count for mobile mist effect
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    const particleCount = isMobile ? 1500 : 6000;
+    const particleCount = isMobile ? 4000 : 6000;
     const sphere = useMemo(() => random.inSphere(new Float32Array(particleCount), { radius: 1.5 }), [particleCount]);
 
     useFrame((state, delta) => {
@@ -40,17 +40,15 @@ export default function Hero() {
         <section className="relative h-screen min-h-[600px] w-full flex flex-col items-center justify-center overflow-hidden bg-bg-primary">
             {/* Ambient Depth Blobs */}
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-                <div className={`absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent-primary/5 rounded-full ${isMobile ? 'blur-[60px]' : 'blur-[120px]'} animate-pulse`} />
-                <div className={`absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] bg-accent-secondary/5 rounded-full ${isMobile ? 'blur-[50px]' : 'blur-[100px]'}`} />
-                <div className={`absolute top-[40%] right-[10%] w-[20%] h-[20%] bg-accent-primary/10 rounded-full ${isMobile ? 'blur-[40px]' : 'blur-[80px]'}`} />
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent-primary/5 rounded-full blur-[120px] animate-pulse" />
+                <div className="absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] bg-accent-secondary/5 rounded-full blur-[100px]" />
+                <div className="absolute top-[40%] right-[10%] w-[20%] h-[20%] bg-accent-primary/10 rounded-full blur-[80px]" />
             </div>
 
             {/* Three.js Background */}
             <div className="absolute inset-0 z-0">
-                <Canvas camera={{ position: [0, 0, 1] }} dpr={[1, 2]}>
-                    <AdaptiveDpr pixelated={isMobile} />
+                <Canvas camera={{ position: [0, 0, 1] }}>
                     <NeuralNetwork />
-                    <Preload all />
                 </Canvas>
             </div>
 
