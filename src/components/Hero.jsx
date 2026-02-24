@@ -12,20 +12,23 @@ function NeuralNetwork() {
     const sphere = useMemo(() => random.inSphere(new Float32Array(particleCount), { radius: 1.5 }), [particleCount]);
 
     useFrame((state, delta) => {
-        ref.current.rotation.x -= delta / 15;
-        ref.current.rotation.y -= delta / 25;
+        // limit rotation speed and ensure it's frame-rate independent
+        if (ref.current) {
+            ref.current.rotation.x -= delta / 20;
+            ref.current.rotation.y -= delta / 30;
+        }
     });
 
     return (
         <group rotation={[0, 0, Math.PI / 4]}>
-            <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
+            <Points ref={ref} positions={sphere} stride={3} frustumCulled={true}>
                 <PointMaterial
                     transparent
                     color="#00F5FF"
-                    size={isMobile ? 0.003 : 0.005} // Smaller particles for mist effect on mobile
+                    size={isMobile ? 0.002 : 0.004}
                     sizeAttenuation={true}
                     depthWrite={false}
-                    opacity={isMobile ? 0.4 : 0.6}
+                    opacity={isMobile ? 0.3 : 0.5}
                 />
             </Points>
         </group>
