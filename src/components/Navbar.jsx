@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center pointer-events-none">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         className="pointer-events-auto"
@@ -12,8 +12,8 @@ export default function Navbar() {
           PRAVAHA<span className="text-accent-primary">AI</span>
         </span>
       </motion.div>
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         className="hidden md:flex gap-8 pointer-events-auto"

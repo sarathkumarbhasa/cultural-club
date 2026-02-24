@@ -48,7 +48,8 @@
   }
 
   .glass-cyan {
-    @apply bg-accent-primary/[0.02] backdrop-blur-xl border border-accent-primary/10 shadow-[0_0_40px_rgba(0, 245, 255, 0.05)];
+    @apply bg-accent-primary/[0.02] backdrop-blur-xl border border-accent-primary/10;
+    box-shadow: 0 0 40px rgba(0, 245, 255, 0.05);
   }
 
   .text-glow {

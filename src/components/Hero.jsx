@@ -6,11 +6,11 @@ import { motion } from 'framer-motion';
 
 function NeuralNetwork() {
     const ref = useRef();
-    const sphere = useMemo(() => random.inSphere(new Float32Array(5000), { radius: 1.5 }), []);
+    const sphere = useMemo(() => random.inSphere(new Float32Array(3000), { radius: 1.5 }), []);
 
     useFrame((state, delta) => {
-        ref.current.rotation.x -= delta / 15;
-        ref.current.rotation.y -= delta / 20;
+        ref.current.rotation.x -= delta / 10;
+        ref.current.rotation.y -= delta / 15;
     });
 
     return (
@@ -19,10 +19,9 @@ function NeuralNetwork() {
                 <PointMaterial
                     transparent
                     color="#00F5FF"
-                    size={0.004}
+                    size={0.005}
                     sizeAttenuation={true}
                     depthWrite={false}
-                    opacity={0.6}
                 />
             </Points>
         </group>
@@ -39,44 +38,37 @@ export default function Hero() {
                 </Canvas>
             </div>
 
-            {/* Overlays */}
-            <div className="absolute inset-0 z-10 bg-grid opacity-30 pointer-events-none" />
-            <div className="absolute inset-0 z-10 bg-gradient-to-b from-bg-primary via-transparent to-bg-primary pointer-events-none" />
+            {/* Grid Overlay */}
+            <div className="absolute inset-0 z-10 bg-grid opacity-20 pointer-events-none" />
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-bg-primary/0 via-bg-primary/50 to-bg-primary pointer-events-none" />
 
             {/* Content */}
-            <div className="relative z-20 text-center px-6 max-w-5xl">
+            <div className="relative z-20 text-center px-6">
                 <motion.div
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className="mb-6"
+                    transition={{ duration: 0.8 }}
+                    className="mb-4"
                 >
-                    <span className="mono text-[10px] md:text-xs uppercase tracking-[0.5em] text-accent-primary font-black px-4 py-1 border border-accent-primary/20 rounded-full bg-accent-primary/5">
-                        Department of AIML · AITS Tirupati
+                    <span className="mono text-[10px] md:text-xs uppercase tracking-[0.4em] text-accent-primary font-bold">
+                        AIML Department · AITS Tirupati
                     </span>
                 </motion.div>
 
                 <motion.h1
-                    initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-                    animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                    transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-                    className="text-7xl md:text-9xl lg:text-[11rem] font-black mb-4 tracking-tighter text-highlight"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="text-6xl md:text-8xl lg:text-9xl font-black mb-2 tracking-tighter bg-gradient-to-b from-highlight to-highlight/30 bg-clip-text text-transparent"
                 >
-                    Pravaha<span className="text-accent-primary">AI</span>
+                    PravahaAI
                 </motion.h1>
 
-                <motion.div
-                    initial={{ opacity: 0, scaleX: 0 }}
-                    animate={{ opacity: 1, scaleX: 1 }}
-                    transition={{ duration: 1, delay: 0.6 }}
-                    className="h-[1px] w-24 bg-accent-primary mx-auto mb-8 shadow-[0_0_15px_rgba(0,245,255,0.8)]"
-                />
-
                 <motion.p
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 0.8 }}
-                    className="text-xl md:text-3xl font-light text-body-text mb-14 tracking-[0.1em] uppercase"
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="text-xl md:text-2xl font-light text-body-text mb-12 tracking-wide"
                 >
                     Flow of Intelligence
                 </motion.p>
@@ -84,20 +76,18 @@ export default function Hero() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 1 }}
-                    className="flex flex-col sm:flex-row gap-6 justify-center"
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="flex flex-col sm:flex-row gap-4 justify-center"
                 >
                     <a
                         href="#register"
-                        className="group relative px-12 py-5 bg-accent-primary text-bg-primary font-black text-xs tracking-[0.3em] uppercase overflow-hidden"
+                        className="px-10 py-4 bg-accent-primary text-bg-primary font-bold text-sm tracking-widest uppercase hover:scale-105 transition-transform active:scale-95 shadow-[0_0_30px_rgba(0,245,255,0.4)]"
                     >
-                        <span className="relative z-10">Register Now</span>
-                        <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                        <div className="absolute inset-0 shadow-[0_0_50px_rgba(0,245,255,1)]" />
+                        Register Now
                     </a>
                     <a
                         href="#events"
-                        className="group px-12 py-5 border border-white/10 text-highlight font-black text-xs tracking-[0.3em] uppercase hover:bg-white/5 transition-all hover:border-accent-primary"
+                        className="px-10 py-4 border border-accent-primary/50 text-accent-primary font-bold text-sm tracking-widest uppercase hover:bg-accent-primary/10 transition-colors"
                     >
                         Explore Events
                     </a>
@@ -108,11 +98,11 @@ export default function Hero() {
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 1 }}
-                className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
+                transition={{ delay: 1, duration: 1 }}
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
             >
-                <div className="w-[1px] h-16 bg-gradient-to-b from-accent-primary to-transparent" />
-                <span className="mono text-[8px] uppercase tracking-[0.4em] text-accent-primary font-bold">Initiate Flow</span>
+                <div className="w-[1px] h-12 bg-gradient-to-b from-accent-primary/50 to-transparent" />
+                <span className="mono text-[8px] uppercase tracking-[0.2em] text-body-text">Scroll</span>
             </motion.div>
         </section>
     );
