@@ -36,8 +36,6 @@ function NeuralNetwork() {
 }
 
 export default function Hero() {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-
     return (
         <section className="relative h-screen min-h-[600px] w-full flex flex-col items-center justify-center overflow-hidden bg-bg-primary">
             {/* Ambient Depth Blobs */}
