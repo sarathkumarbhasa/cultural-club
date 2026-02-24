@@ -1,55 +1,42 @@
 import { Suspense, lazy } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Countdown from './components/Countdown';
+import About from './components/About';
+import Registration from './components/Registration';
+import Footer from './components/Footer';
 import { Loader2 } from 'lucide-react';
 
-// Aggressive Lazy Loading for all non-hero sections
-const Countdown = lazy(() => import('./components/Countdown'));
-const About = lazy(() => import('./components/About'));
+// Lazy load the Events section
 const Events = lazy(() => import('./components/Events'));
-const Registration = lazy(() => import('./components/Registration'));
-const Footer = lazy(() => import('./components/Footer'));
 
-function SectionLoading({ message = "Loading Component..." }) {
-  return (
-    <div className="py-20 md:py-32 px-4 md:px-6 bg-bg-primary flex flex-col items-center justify-center min-h-[400px]">
-      <div className="flex flex-col items-center gap-6">
-        <Loader2 className="animate-spin text-accent-primary" size={32} />
-        <span className="mono text-[9px] uppercase tracking-[0.4em] text-accent-primary/40 font-black">
-          {message}
-        </span>
-      </div>
-    </div>
-  );
+function EventsLoading() {
+    return (
+        <div className="py-32 px-6 bg-bg-primary flex flex-col items-center justify-center min-h-[600px]">
+            <div className="flex flex-col items-center gap-6">
+                <Loader2 className="animate-spin text-accent-primary" size={48} />
+                <span className="mono text-[10px] uppercase tracking-[0.5em] text-accent-primary/50 font-black">
+                    Initializing Event Matrix...
+                </span>
+            </div>
+        </div>
+    );
 }
 
 function App() {
-  return (
-    <main className="bg-bg-primary min-h-screen">
-      <Navbar />
-      <Hero />
-
-      <Suspense fallback={<SectionLoading message="Syncing Timeline..." />}>
-        <Countdown />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoading message="Archiving Data..." />}>
-        <About />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoading message="Initializing Matrix..." />}>
-        <Events />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoading message="Accessing Node..." />}>
-        <Registration />
-      </Suspense>
-
-      <Suspense fallback={<div className="h-20 bg-bg-primary" />}>
-        <Footer />
-      </Suspense>
-    </main>
-  );
+    return (
+        <main className="bg-bg-primary min-h-screen">
+            <Navbar />
+            <Hero />
+            <Countdown />
+            <About />
+            <Suspense fallback={<EventsLoading />}>
+                <Events />
+            </Suspense>
+            <Registration />
+            <Footer />
+        </main>
+    );
 }
 
 export default App;

@@ -54,7 +54,7 @@ export default function Registration() {
         };
 
         try {
-            await fetch("https://script.google.com/macros/s/AKfycby-Yp52lZvYPaREDFWZUdGkQ2k5K6Gmy6K0QCp3yq-SZ35lUPFvxjmHxFrWS83Ikem2/exec", {
+            await fetch("https://script.google.com/macros/s/AKfycbw1ojX4nITCHjfl4_XiV9lV2mbf7wZXMjO_MPFpvav62C0aKptlyrDjimNPtOS-R4_2/exec", {
                 method: "POST",
                 mode: "no-cors",
                 headers: { "Content-Type": "application/json" },

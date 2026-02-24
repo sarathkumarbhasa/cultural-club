@@ -1,7 +1,7 @@
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
-import * as random from 'maath/random/dist/maath-random.esm';
+import * as random from 'maath/random';
 import { motion } from 'framer-motion';
 
 function NeuralNetwork() {
@@ -12,23 +12,20 @@ function NeuralNetwork() {
     const sphere = useMemo(() => random.inSphere(new Float32Array(particleCount), { radius: 1.5 }), [particleCount]);
 
     useFrame((state, delta) => {
-        // limit rotation speed and ensure it's frame-rate independent
-        if (ref.current) {
-            ref.current.rotation.x -= delta / 20;
-            ref.current.rotation.y -= delta / 30;
-        }
+        ref.current.rotation.x -= delta / 15;
+        ref.current.rotation.y -= delta / 25;
     });
 
     return (
         <group rotation={[0, 0, Math.PI / 4]}>
-            <Points ref={ref} positions={sphere} stride={3} frustumCulled={true}>
+            <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
                 <PointMaterial
                     transparent
-                    color="#00F5FF"
-                    size={isMobile ? 0.002 : 0.004}
+                    color="#CCFF00"
+                    size={isMobile ? 0.003 : 0.005} // Smaller particles for mist effect on mobile
                     sizeAttenuation={true}
                     depthWrite={false}
-                    opacity={isMobile ? 0.3 : 0.5}
+                    opacity={isMobile ? 0.4 : 0.6}
                 />
             </Points>
         </group>
@@ -40,9 +37,9 @@ export default function Hero() {
         <section className="relative h-screen min-h-[600px] w-full flex flex-col items-center justify-center overflow-hidden bg-bg-primary">
             {/* Ambient Depth Blobs */}
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent-primary/5 rounded-full blur-[120px] animate-pulse" />
-                <div className="absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] bg-accent-secondary/5 rounded-full blur-[100px]" />
-                <div className="absolute top-[40%] right-[10%] w-[20%] h-[20%] bg-accent-primary/10 rounded-full blur-[80px]" />
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent-primary/10 rounded-full blur-[120px]" />
+                <div className="absolute bottom-[10%] right-[-5%] w-[40%] h-[40%] bg-accent-secondary/10 rounded-full blur-[100px]" />
+                <div className="absolute top-[40%] right-[10%] w-[30%] h-[30%] bg-accent-primary/20 rounded-full blur-[80px]" />
             </div>
 
             {/* Three.js Background */}
