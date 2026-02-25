@@ -219,9 +219,34 @@ export default function Registration() {
                                     )}
                                 </div>
 
+                                {/* Payment Section */}
+                                <div className="space-y-8 p-6 md:p-8 bg-accent-primary/[0.03] border border-accent-primary/10 rounded-lg">
+                                    <div className="flex flex-col md:flex-row items-center gap-10">
+                                        <div className="relative group">
+                                            <div className="absolute -inset-4 bg-accent-primary/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            <img
+                                                src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=6300586489-2@axl&pn=PravahaAI&cu=INR"
+                                                alt="UPI QR Code"
+                                                className="relative w-40 md:w-48 h-40 md:h-48 border border-accent-primary/20 p-2 bg-white"
+                                            />
+                                        </div>
+                                        <div className="flex-1 space-y-4 text-center md:text-left">
+                                            <h4 className="mono text-[10px] uppercase tracking-[0.4em] text-accent-primary font-black">Payment Node</h4>
+                                            <p className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-highlight">Scan <span className="text-accent-primary">To Pay</span></p>
+                                            <div className="flex flex-col gap-2">
+                                                <span className="mono text-[10px] text-body-text/60 uppercase tracking-widest">Designated UPI ID</span>
+                                                <span className="text-xl font-mono text-accent-primary font-bold">6300586489-2@axl</span>
+                                            </div>
+                                            <p className="text-[10px] text-body-text/40 leading-relaxed max-w-xs mx-auto md:mx-0">
+                                                Complete the transaction via any UPI app and upload the digital confirmation (screenshot) in the sector below.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {/* File Upload */}
                                 <div className="space-y-6">
-                                    <label className="mono text-[8px] uppercase tracking-widest text-accent-primary font-black">Visual Confirmation (ID / Proof)</label>
+                                    <label className="mono text-[8px] uppercase tracking-widest text-accent-primary font-black">Visual Confirmation (Payment Screenshot)</label>
                                     <div
                                         onClick={() => fileInputRef.current?.click()}
                                         className={`group relative h-48 border border-white/5 bg-white/[0.01] flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white/[0.03] hover:border-accent-primary/20 ${preview && 'border-accent-primary/30'}`}
@@ -231,7 +256,7 @@ export default function Registration() {
                                         ) : (
                                             <div className="flex flex-col items-center gap-4 group-hover:scale-110 transition-transform duration-500">
                                                 <Upload size={32} className="text-body-text/30 group-hover:text-accent-primary transition-colors" />
-                                                <span className="mono text-[9px] uppercase tracking-[0.4em] text-body-text/40">Upload Packet</span>
+                                                <span className="mono text-[9px] uppercase tracking-[0.4em] text-body-text/40">Upload Screenshot</span>
                                             </div>
                                         )}
                                         <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleImageChange} />
